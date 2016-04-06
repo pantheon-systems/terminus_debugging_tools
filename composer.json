@@ -1,0 +1,9 @@
+{
+  "name": "pantheon-systems/terminus_debugging_tools",
+  "description": "Pancakes - A Terminus plugin for Sequel Pro",
+  "homepage": "https://github.com/pantheon-systems/terminus_debugging_tools",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.5"
+  }
+}
