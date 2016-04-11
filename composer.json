@@ -1,0 +1,10 @@
+{
+    "name": "alex.dicianu/terminus-debugging-tools",
+    "description": "Useful commands for debugging problems.",
+    "type": "terminus-plugin",
+    "extra": {
+        "terminus": {
+            "compatible-version": "1.*"
+        }
+    }
+}
