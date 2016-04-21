@@ -53,6 +53,11 @@ class BlobBlotterCommand extends TerminusCommand {
       $info['mysql_port']
     );
 
+    if (!$connect) {
+      $this->log()->error('ERROR: Can\'t connect to the specified environment\'s database. Please make sure it\'s not sleeping.');
+      exit;
+    }
+
     return $connect;
   }
 
