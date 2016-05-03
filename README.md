@@ -12,5 +12,6 @@ This command looks for large blobs in your database.  Large blobs can break repl
 Example:
 
 ```
-terminus blob --site MY_SITE_UUID --env MY_ENV
+terminus blob columns --site=SITE_NAME --env=ENV
+terminus blob cells --site=SITE_NAME --env=ENV --table=TABLE_NAME --column=COLUMNA_NAME
 ```
