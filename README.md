@@ -15,3 +15,14 @@ Example:
 terminus blob columns --site=SITE_NAME --env=ENV
 terminus blob cells --site=SITE_NAME --env=ENV --table=TABLE_NAME --column=COLUMNA_NAME
 ```
+
+## Analyze
+
+This command runs `ANALYZE TABLE table_1, table_2` on the client database. Leave `--table` parameter empty for all the tables from the database.
+
+Example:
+
+```
+terminus analyze --site=SITE_NAME --env=ENV
+terminus analyze --site=SITE_NAME --env=ENV --table=node,users
+```
