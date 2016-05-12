@@ -55,7 +55,7 @@ class BlobBlotterCommand extends TerminusCommand {
 
     if (!$connect) {
       $this->log()->error('ERROR: Can\'t connect to the specified environment\'s database. Please make sure it\'s not sleeping.');
-      exit;
+      exit;  
     }
 
     return $connect;
@@ -111,7 +111,7 @@ class BlobBlotterCommand extends TerminusCommand {
         $table  = $value['TABLE_NAME'];
         $column = $value['COLUMN_NAME'];
 
-        $query = "SELECT length($column)/1024 AS column_KB FROM $table LIMIT 1";
+        $query = "SELECT length($column)/1024 AS column_KB FROM $table ORDER BY column_KB DESC LIMIT 1";
         if ($result = mysqli_query($connect, $query)) {
           $row = mysqli_fetch_row($result);
           if (!empty($row[0])) {
