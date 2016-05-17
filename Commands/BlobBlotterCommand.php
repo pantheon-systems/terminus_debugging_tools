@@ -45,6 +45,8 @@ class BlobBlotterCommand extends TerminusCommand {
     $environment = $site->environments->get($env_id);
     $info        = $environment->connectionInfo();
 
+    $environment->wake();
+
     $connect = mysqli_connect(
       $info['mysql_host'],
       $info['mysql_username'],
@@ -54,8 +56,13 @@ class BlobBlotterCommand extends TerminusCommand {
     );
 
     if (!$connect) {
-      $this->log()->error('ERROR: Can\'t connect to the specified environment\'s database. Please make sure it\'s not sleeping.');
-      exit;  
+      $this->log()->error(
+        '{errno}: {error}', array(
+          'errno' => mysqli_connect_errno(),
+          'error' => mysqli_connect_error()
+        )
+      );
+      exit;
     }
 
     return $connect;
@@ -171,8 +178,8 @@ class BlobBlotterCommand extends TerminusCommand {
     $table  = mysqli_real_escape_string($connect, $assoc_args['table']);
     $column = mysqli_real_escape_string($connect, $assoc_args['column']);
 
-    $query = "SELECT column_name 
-    FROM information_schema.columns 
+    $query = "SELECT column_name
+    FROM information_schema.columns
     WHERE table_name = '$table' AND column_name != '$column'";
 
     if ($result = mysqli_query($connect, $query)) {
@@ -185,9 +192,9 @@ class BlobBlotterCommand extends TerminusCommand {
 
     $cols = implode(',', $cols);
 
-    $query = "SELECT $cols, length($column)/1024 AS column_KB 
-    FROM $table 
-    ORDER BY column_KB DESC 
+    $query = "SELECT $cols, length($column)/1024 AS column_KB
+    FROM $table
+    ORDER BY column_KB DESC
     LIMIT 50";
 
     if ($result = mysqli_query($connect, $query)) {

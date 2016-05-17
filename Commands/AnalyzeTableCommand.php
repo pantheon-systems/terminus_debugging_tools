@@ -6,10 +6,10 @@ use Terminus\Models\Collections\Sites;
 
 /**
  * Analyzes tables from the client database.
- * 
+ *
  * `terminus analyze TABLE_1, TABLE_2`
  *
- * @command analyze 
+ * @command analyze
  */
 class AnalyzeTableCommand extends TerminusCommand {
 
@@ -63,9 +63,23 @@ class AnalyzeTableCommand extends TerminusCommand {
 
     $this->log()->info("Running the following query (please be patient, this might take a while): \n'ANALYZE TABLE " . $tables . "'");
 
-    if ($this->_analyzeTables($connect, $tables)) {
-      $this->log()->info("Finished.");
+    if ($results = $this->_analyzeTables($connect, $tables)) {
+      // Output the results in table format.
+      $rows = array();
+      $labels = [
+        'table'  => 'Table',
+        'status' => 'Status',
+      ];
+      foreach ($results as $table => $status) {
+        $rows[] = [
+          'table'  => $table,
+          'status' => $status,
+        ];
+      }
+      $this->output()->outputRecordList($rows, $labels);
     }
+
+    $this->log()->info('Finished analyzing {count} tables.', array('count' => count($results)));
 
     $this->_closeConnection($connect);
   }
@@ -88,6 +102,8 @@ class AnalyzeTableCommand extends TerminusCommand {
     $environment = $site->environments->get($env_id);
     $info        = $environment->connectionInfo();
 
+    $environment->wake();
+
     $connect = mysqli_connect(
       $info['mysql_host'],
       $info['mysql_username'],
@@ -97,8 +113,13 @@ class AnalyzeTableCommand extends TerminusCommand {
     );
 
     if (!$connect) {
-      $this->log()->error('ERROR: Can\'t connect to the specified environment\'s database. Please make sure it\'s not sleeping.');
-      exit;  
+      $this->log()->error(
+        '{errno}: {error}', array(
+          'errno' => mysqli_connect_errno(),
+          'error' => mysqli_connect_error()
+        )
+      );
+      exit;
     }
 
     return $connect;
@@ -119,11 +140,15 @@ class AnalyzeTableCommand extends TerminusCommand {
       return FALSE;
     }
 
+    $results = array();
     $query = 'ANALYZE TABLE ' . $tables;
-    $result = mysqli_query($connect, $query);
+    if ($result = mysqli_query($connect, $query, MYSQLI_USE_RESULT)) {
+      while ($row = mysqli_fetch_object($result)) {
+        $results[$row->Table] = $row->Msg_text;
+      }
+    }
 
-    if ($result) return TRUE;
-    return FALSE;
+    return $results;
   }
 
   /**
