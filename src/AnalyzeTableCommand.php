@@ -70,6 +70,8 @@ class AnalyzeTableCommand extends TerminusCommand implements SiteAwareInterface 
     list(, $env) = $this->getSiteEnv($site_env);
     $info = $env->connectionInfo();
 
+    $env->wake();
+
     $connect = mysqli_connect(
       $info['mysql_host'],
       $info['mysql_username'],
@@ -78,7 +80,12 @@ class AnalyzeTableCommand extends TerminusCommand implements SiteAwareInterface 
       $info['mysql_port']
     );
     if (!$connect) {
-      $this->log()->error('ERROR: Can\'t connect to the specified environment\'s database. Please make sure it\'s not sleeping.');
+      $this->log()->error(
+       '{errno}: {error}', array(
+          'errno' => mysqli_connect_errno(),
+          'error' => mysqli_connect_error()
+        )
+      );
       exit;
     }
     return $connect;
