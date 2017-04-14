@@ -2,7 +2,7 @@
 namespace Terminus\Commands;
 
 use Terminus\Commands\TerminusCommand;
-use Terminus\Models\Collections\Sites;
+use Terminus\Collections\Sites;
 
 /**
  * Analyzes tables from the client database.
