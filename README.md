@@ -1,28 +1,17 @@
 # terminus_cse_tools
 A collection of terminus plugins to facilitate managing sites on Pantheon.
 
-For installation help, see [Terminus Plugins Wiki](https://github.com/pantheon-systems/terminus/wiki/Plugins)
-
-# Tools
-
-## Blob
-
-This command looks for large blobs in your database.  Large blobs can break replication and otherwise cause issue.
-
-Example:
+## Blob Blotter commands
 
 ```
-terminus blob columns --site=SITE_NAME --env=ENV
-terminus blob cells --site=SITE_NAME --env=ENV --table=TABLE_NAME --column=COLUMNA_NAME
+$ terminus blob:columns SITE.ENV
+$ terminus blob:cells SITE.ENV TABLE COLUMN --format=table
 ```
 
-## Analyze
-
-This command runs `ANALYZE TABLE table_1, table_2` on the client database. Leave `--table` parameter empty for all the tables from the database.
-
-Example:
+## Analyze Table commands:
 
 ```
-terminus analyze --site=SITE_NAME --env=ENV
-terminus analyze --site=SITE_NAME --env=ENV --table=node,users
+$ terminus analyze-table:run SITE.ENV TABLE
+$ terminus analyze-table:run SITE.ENV TABLE_1,TABLE_2,TABLE_3
+$ terminus analyze-table:run SITE.ENV all
 ```
