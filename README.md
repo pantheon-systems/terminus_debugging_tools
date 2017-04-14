@@ -41,7 +41,9 @@ $ terminus blob:cells SITE.ENV field_data_body body_value --format=table
   node          article   0         158         158           und        0                      full_html     14.0332
 ```
 
-## Analyze Table commands:
+## Analyze Table commands
+
+Runs ANALIZE TABLE query on either a specific group of tables or all of them.
 
 ```
 $ terminus analyze-table:run SITE.ENV TABLE
