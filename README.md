@@ -1,5 +1,9 @@
-# terminus_cse_tools
+# terminus debugging tools
 A collection of terminus plugins to facilitate managing sites on Pantheon.
+
+## Installation
+
+For installing this plugin, please follow the instrctions from here - https://pantheon.io/docs/terminus/plugins/
 
 ## Blob Blotter commands
 
