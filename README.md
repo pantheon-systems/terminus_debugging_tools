@@ -50,3 +50,12 @@ $ terminus analyze-table:run SITE.ENV TABLE
 $ terminus analyze-table:run SITE.ENV TABLE_1,TABLE_2,TABLE_3
 $ terminus analyze-table:run SITE.ENV all
 ```
+
+## Analyze Redis usage
+
+Dumps the redis database locally and analyzes KEY usage. As the output is quite large you can direct it to a file. Since the redis import process is a bit brutal, this is all happening in a throwaway docker container.
+
+```
+$ terminus redis:analyze SITE.ENV
+$ terminus redis:analyze SITE.ENV > ~/Desktop/breederscupredis.log
+```
