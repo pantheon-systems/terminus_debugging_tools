@@ -43,6 +43,8 @@ class RedisMemoryAnalysisCommand extends TerminusCommand implements SiteAwareInt
 
     $redis_cli = $info['redis_command'];
     
+    $this->log()->notice("Pulling necessary libraries. Don't worry, we'll clean them up later.");
+    
     // Pull the container where we're importing redis.
     $cmd = "docker pull dicix/rma";
     exec($cmd, $output, $return);
@@ -50,8 +52,6 @@ class RedisMemoryAnalysisCommand extends TerminusCommand implements SiteAwareInt
       $this->log()->error("Error pulling rma container. Check your internet connection and if docker is properly installed.");
       return;
     }
-
-    $this->log()->notice("Pulling necessary libraries. Don't worry, we'll clean them up later.");
 
     // Clean up.
     $cmd = "docker rm rma >/dev/null 2>&1";
