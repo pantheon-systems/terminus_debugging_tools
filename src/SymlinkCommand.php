@@ -107,7 +107,7 @@ class SymlinkCommand extends TerminusCommand implements SiteAwareInterface
 			$transfer_directory = "$updown_rsync ~/.pantheon_symlink/$LOCAL_TARGET --temp-dir=~/tmp/ $connection:files/symlink_target/" . $devnull;
 		} else {
 			//or create the symlink target empty directory or file
-			if($config['pointtofile']) {
+			if($options['pointtofile']) {
 				passthru("mkdir -p ~/.pantheon_symlink/empty");
 				passthru("touch ~/.pantheon_symlink/empty/$DEST");
 			} else {
