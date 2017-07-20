@@ -77,7 +77,7 @@ class BlobBlotterCommand extends TerminusCommand implements SiteAwareInterface {
    *
    * @command blob:cells
    *
-   * @default-format: table
+   * @default-format table
    * 
    * @return RowsOfFields
    * 
