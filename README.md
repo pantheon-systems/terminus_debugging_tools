@@ -1,6 +1,8 @@
 # terminus debugging tools
 A collection of terminus plugins to facilitate managing sites on Pantheon.
 
+[![Unofficial](https://img.shields.io/badge/Pantheon-Unofficial-yellow?logo=pantheon&color=FFDC28)](https://pantheon.io/docs/oss-support-levels#unofficial)
+
 ## Installation
 
 For installing this plugin, please follow the instrctions from here - https://pantheon.io/docs/terminus/plugins/
