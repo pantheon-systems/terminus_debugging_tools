@@ -1,0 +1,12 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: terminus_debugging_tools
+  description: Auto-generated catalog info for pantheon-systems/terminus_debugging_tools
+  annotations:
+    backstage.io/techdocs-ref: dir:docs/
+spec:
+  type: tool
+  lifecycle: deprecated
+  owner: devx
