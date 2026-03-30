@@ -9,4 +9,4 @@ metadata:
 spec:
   type: tool
   lifecycle: deprecated
-  owner: devx
+  owner: developer-experience
